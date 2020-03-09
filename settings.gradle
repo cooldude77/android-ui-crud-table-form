@@ -1,0 +1,3 @@
+rootProject.name='UI Crud As Table'
+include ':app'
+include ':uicrudastableformmodule'
