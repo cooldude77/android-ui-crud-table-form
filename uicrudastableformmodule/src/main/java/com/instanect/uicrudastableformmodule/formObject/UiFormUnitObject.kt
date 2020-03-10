@@ -1,4 +1,4 @@
-package com.instanect.uicrudastableformmodule.`object`
+package com.instanect.uicrudastableformmodule.formObject
 
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback

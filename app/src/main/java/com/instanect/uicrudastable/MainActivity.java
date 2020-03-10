@@ -11,7 +11,7 @@ import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragment;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
-import com.instanect.uicrudastableformmodule.object.UiFormUnitObject;
+import com.instanect.uicrudastableformmodule.formObject.UiFormUnitObject;
 
 public class MainActivity extends AppCompatActivity
         implements UITableLayoutFormFragmentAddNewRowCallback,

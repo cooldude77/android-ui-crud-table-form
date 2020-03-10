@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.R2;
-import com.instanect.uicrudastableformmodule.object.UiFormUnitObject;
+import com.instanect.uicrudastableformmodule.formObject.UiFormUnitObject;
 
 import java.util.UUID;
 
