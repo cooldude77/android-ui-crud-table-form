@@ -3,17 +3,19 @@ package com.instanect.uicrudastable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragment;
 import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragmentAddNewRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragmentDeleteRowCallback;
+import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragmentOnViewInsideRowClicked;
 import com.instanect.uicrudastableformmodule.fragment.UiFormUnitObject;
 
 public class MainActivity extends AppCompatActivity
         implements UITableLayoutFormFragmentAddNewRowCallback,
-        UITableLayoutFormFragmentDeleteRowCallback {
+        UITableLayoutFormFragmentDeleteRowCallback, UITableLayoutFormFragmentOnViewInsideRowClicked {
 
     private static final String FRAG_TAG = "Form Fragment";
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity
         UiFormUnitObject uiFormUnitObject = new UiFormUnitObject();
         uiFormUnitObject.setAddNewRowCallback(this);
         uiFormUnitObject.setDeleteRowCallback(this);
+        uiFormUnitObject.setOnViewInsideRowClickedCallback(this);
         uiFormUnitObject.setIdResRowLayout(R.layout.example_row);
         uiFormUnitObject.setButtonDeleteResId(R.id.buttonDelete);
 
@@ -54,5 +57,10 @@ public class MainActivity extends AppCompatActivity
         assert fragment != null;
         fragment.deleteRow(rowOnWhichDeleteWasClicked);
 
+    }
+
+    @Override
+    public void onViewInsideRowClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, View view) {
+        Toast.makeText(this, "View Clicked", Toast.LENGTH_SHORT).show();
     }
 }

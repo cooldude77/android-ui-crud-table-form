@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.R2;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -58,9 +57,7 @@ public class UITableLayoutFormFragment extends Fragment {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     assertNotNull(uiFormUnitObject.getDeleteRowCallback());
-
                     uiFormUnitObject.getDeleteRowCallback().onRowDeleteButtonClicked(
                             UITableLayoutFormFragment.this,
                             tableRow
@@ -68,6 +65,22 @@ public class UITableLayoutFormFragment extends Fragment {
 
                 }
             });
+
+
+        if (uiFormUnitObject.getOnViewInsideRowClickedCallback() != null)
+            for (int i = 0; i < ((ViewGroup)rowChildView).getChildCount(); i++) {
+                View v = ((ViewGroup)rowChildView).getChildAt(i);
+                if (v instanceof TextView)
+                    v.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            uiFormUnitObject.getOnViewInsideRowClickedCallback()
+                                    .onViewInsideRowClicked(
+                                            UITableLayoutFormFragment.this,
+                                            view);
+                        }
+                    });
+            }
 
 
         tableLayout.addView(tableRow);

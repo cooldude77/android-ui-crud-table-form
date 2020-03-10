@@ -8,5 +8,6 @@ public class UiFormUnitObject {
     var titleOfForm = "My Form"
     var addNewRowCallback: UITableLayoutFormFragmentAddNewRowCallback? = null
     var deleteRowCallback: UITableLayoutFormFragmentDeleteRowCallback? = null
+    var onViewInsideRowClickedCallback: UITableLayoutFormFragmentOnViewInsideRowClicked? = null
     var buttonDeleteResId = -1
 }
