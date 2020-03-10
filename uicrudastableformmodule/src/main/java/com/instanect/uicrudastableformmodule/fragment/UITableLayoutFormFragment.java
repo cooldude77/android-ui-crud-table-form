@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.R2;
+import com.instanect.uicrudastableformmodule.object.UiFormUnitObject;
 
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ public class UITableLayoutFormFragment extends Fragment {
         View view = getLayoutInflater().inflate(uiFormUnitObject.getIdResRowLayout(), null);
 
         assertNotNull(uiFormUnitObject.getAddNewRowCallback());
-        uiFormUnitObject.getAddNewRowCallback().onImageButtonAddClicked(this, view);
+        uiFormUnitObject.getAddNewRowCallback().onUITableLayoutFormFragmentAddNewButtonAddClicked(this, view);
 
     }
 
@@ -58,7 +59,7 @@ public class UITableLayoutFormFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     assertNotNull(uiFormUnitObject.getDeleteRowCallback());
-                    uiFormUnitObject.getDeleteRowCallback().onRowDeleteButtonClicked(
+                    uiFormUnitObject.getDeleteRowCallback().onUITableLayoutFormFragmentRowDeleteButtonClicked(
                             UITableLayoutFormFragment.this,
                             tableRow
                     );
@@ -75,7 +76,7 @@ public class UITableLayoutFormFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             uiFormUnitObject.getOnViewInsideRowClickedCallback()
-                                    .onViewInsideRowClicked(
+                                    .onUITableLayoutFormFragmentViewInsideRowClicked(
                                             UITableLayoutFormFragment.this,
                                             view);
                         }

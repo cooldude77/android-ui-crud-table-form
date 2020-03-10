@@ -8,10 +8,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragment;
-import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragmentAddNewRowCallback;
-import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragmentDeleteRowCallback;
-import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragmentOnViewInsideRowClicked;
-import com.instanect.uicrudastableformmodule.fragment.UiFormUnitObject;
+import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
+import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
+import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
+import com.instanect.uicrudastableformmodule.object.UiFormUnitObject;
 
 public class MainActivity extends AppCompatActivity
         implements UITableLayoutFormFragmentAddNewRowCallback,
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onImageButtonAddClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, View view) {
+    public void onUITableLayoutFormFragmentAddNewButtonAddClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, View view) {
 
         UITableLayoutFormFragment fragment
                 = (UITableLayoutFormFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG);
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRowDeleteButtonClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, TableRow rowOnWhichDeleteWasClicked) {
+    public void onUITableLayoutFormFragmentRowDeleteButtonClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, TableRow rowOnWhichDeleteWasClicked) {
         UITableLayoutFormFragment fragment
                 = (UITableLayoutFormFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG);
         assert fragment != null;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onViewInsideRowClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, View view) {
+    public void onUITableLayoutFormFragmentViewInsideRowClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, View view) {
         Toast.makeText(this, "View Clicked", Toast.LENGTH_SHORT).show();
     }
 }

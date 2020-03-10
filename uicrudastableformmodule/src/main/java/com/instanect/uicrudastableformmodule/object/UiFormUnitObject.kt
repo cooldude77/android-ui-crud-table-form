@@ -1,4 +1,8 @@
-package com.instanect.uicrudastableformmodule.fragment
+package com.instanect.uicrudastableformmodule.`object`
+
+import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback
+import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback
+import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked
 
 public class UiFormUnitObject {
     var maxRowAllowed = 0
