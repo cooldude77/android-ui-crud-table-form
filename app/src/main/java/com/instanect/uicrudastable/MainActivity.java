@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onUITableLayoutFormFragmentAddNewButtonAddClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, View view) {
+    public void onUITableLayoutFormFragmentAddNewButtonAddClicked( View view) {
 
         UITableLayoutFormFragment fragment
                 = (UITableLayoutFormFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG);
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onUITableLayoutFormFragmentRowDeleteButtonClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, TableRow rowOnWhichDeleteWasClicked) {
+    public void onUITableLayoutFormFragmentRowDeleteButtonClicked( TableRow rowOnWhichDeleteWasClicked) {
         UITableLayoutFormFragment fragment
                 = (UITableLayoutFormFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG);
         assert fragment != null;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onUITableLayoutFormFragmentViewInsideRowClicked(UITableLayoutFormFragment uiTableLayoutFormFragment, View view) {
+    public void onUITableLayoutFormFragmentViewInsideRowClicked( View view) {
         Toast.makeText(this, "View Clicked", Toast.LENGTH_SHORT).show();
     }
 }

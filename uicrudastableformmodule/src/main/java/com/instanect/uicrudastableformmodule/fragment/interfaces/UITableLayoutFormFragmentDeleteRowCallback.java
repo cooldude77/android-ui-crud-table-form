@@ -6,6 +6,6 @@ import android.widget.TableRow;
 import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragment;
 
 public interface UITableLayoutFormFragmentDeleteRowCallback {
-    void onUITableLayoutFormFragmentRowDeleteButtonClicked(UITableLayoutFormFragment uiTableLayoutFormFragment,
-                                                           TableRow rowOnWhichDeleteWasClicked);
+    void onUITableLayoutFormFragmentRowDeleteButtonClicked(
+            TableRow rowOnWhichDeleteWasClicked);
 }

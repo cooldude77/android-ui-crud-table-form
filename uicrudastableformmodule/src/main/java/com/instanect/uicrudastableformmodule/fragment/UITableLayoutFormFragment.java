@@ -52,7 +52,7 @@ public class UITableLayoutFormFragment extends Fragment {
         View view = getLayoutInflater().inflate(uiFormUnitObject.getIdResRowLayout(), null);
 
         assertNotNull(uiFormUnitObject.getAddNewRowCallback());
-        uiFormUnitObject.getAddNewRowCallback().onUITableLayoutFormFragmentAddNewButtonAddClicked(this, view);
+        uiFormUnitObject.getAddNewRowCallback().onUITableLayoutFormFragmentAddNewButtonAddClicked(view);
 
     }
 
@@ -73,7 +73,7 @@ public class UITableLayoutFormFragment extends Fragment {
                 public void onClick(View v) {
                     assertNotNull(uiFormUnitObject.getDeleteRowCallback());
                     uiFormUnitObject.getDeleteRowCallback().onUITableLayoutFormFragmentRowDeleteButtonClicked(
-                            UITableLayoutFormFragment.this,
+
                             tableRow
                     );
 
@@ -90,7 +90,6 @@ public class UITableLayoutFormFragment extends Fragment {
                         public void onClick(View view) {
                             uiFormUnitObject.getOnViewInsideRowClickedCallback()
                                     .onUITableLayoutFormFragmentViewInsideRowClicked(
-                                            UITableLayoutFormFragment.this,
                                             view);
                         }
                     });
