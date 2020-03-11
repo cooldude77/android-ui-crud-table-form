@@ -17,6 +17,9 @@ import androidx.fragment.app.Fragment;
 import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.R2;
 import com.instanect.uicrudastableformmodule.formObject.UiFormUnitObject;
+import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
+import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
+import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
 
 import java.util.UUID;
 
@@ -30,6 +33,16 @@ import static org.junit.Assert.assertNotNull;
 public class UITableLayoutFormFragment extends Fragment {
     private UiFormUnitObject uiFormUnitObject;
     private Context context;
+
+    private int maxRowAllowed = 0;
+    private int idResRowLayout = -1;
+    private boolean addAllowed = true;
+    private boolean deleteAllowed = true;
+    private String titleOfForm = "My Form";
+    private UITableLayoutFormFragmentAddNewRowCallback addNewRowCallback;
+    private UITableLayoutFormFragmentDeleteRowCallback deleteRowCallback;
+    private UITableLayoutFormFragmentOnViewInsideRowClicked onViewInsideRowClickedCallback;
+    private int buttonDeleteResId = -1;
 
     @OnClick(R2.id.imageButtonAdd)
     public void onImageButtonAddClicked() {
@@ -69,8 +82,8 @@ public class UITableLayoutFormFragment extends Fragment {
 
 
         if (uiFormUnitObject.getOnViewInsideRowClickedCallback() != null)
-            for (int i = 0; i < ((ViewGroup)rowChildView).getChildCount(); i++) {
-                View v = ((ViewGroup)rowChildView).getChildAt(i);
+            for (int i = 0; i < ((ViewGroup) rowChildView).getChildCount(); i++) {
+                View v = ((ViewGroup) rowChildView).getChildAt(i);
                 if (v instanceof TextView)
                     v.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -123,5 +136,37 @@ public class UITableLayoutFormFragment extends Fragment {
 
     public void deleteRow(TableRow rowOnWhichDeleteWasClicked) {
         tableLayout.removeView(rowOnWhichDeleteWasClicked);
+    }
+
+    public void setMaxRowAllowed(int maxRowAllowed) {
+        this.maxRowAllowed = maxRowAllowed;
+    }
+
+    public void setIdResRowLayout(int idResRowLayout) {
+        this.idResRowLayout = idResRowLayout;
+    }
+
+    public void setAddAllowed(boolean addAllowed) {
+        this.addAllowed = addAllowed;
+    }
+
+    public void setDeleteAllowed(boolean deleteAllowed) {
+        this.deleteAllowed = deleteAllowed;
+    }
+
+    public void setTitleOfForm(String titleOfForm) {
+        this.titleOfForm = titleOfForm;
+    }
+
+    public void setAddNewRowCallback(UITableLayoutFormFragmentAddNewRowCallback addNewRowCallback) {
+        this.addNewRowCallback = addNewRowCallback;
+    }
+
+    public void setDeleteRowCallback(UITableLayoutFormFragmentDeleteRowCallback deleteRowCallback) {
+        this.deleteRowCallback = deleteRowCallback;
+    }
+
+    public void setOnViewInsideRowClickedCallback(UITableLayoutFormFragmentOnViewInsideRowClicked onViewInsideRowClickedCallback) {
+        this.onViewInsideRowClickedCallback = onViewInsideRowClickedCallback;
     }
 }
