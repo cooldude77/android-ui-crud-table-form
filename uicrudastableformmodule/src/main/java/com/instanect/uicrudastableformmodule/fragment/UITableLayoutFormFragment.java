@@ -58,9 +58,7 @@ public class UITableLayoutFormFragment extends Fragment {
     LinearLayout linearLayout;
 
     public void onAddNewRequestSuccessful(View rowChildView) {
-        rowChildView.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
+
 
         String tag = UUID.randomUUID().toString();
 
@@ -94,7 +92,9 @@ public class UITableLayoutFormFragment extends Fragment {
             }
 
 
-        linearLayout.addView(rowChildView);
+        linearLayout.addView(rowChildView,
+                new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
     public static UITableLayoutFormFragment newInstance() {
