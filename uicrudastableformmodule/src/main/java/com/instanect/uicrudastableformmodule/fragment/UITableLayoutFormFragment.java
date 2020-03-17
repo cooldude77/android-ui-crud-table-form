@@ -31,7 +31,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class UITableLayoutFormFragment extends Fragment {
-    private UiFormUnitObject uiFormUnitObject;
     private Context context;
 
     private int maxRowAllowed = 0;
@@ -47,12 +46,12 @@ public class UITableLayoutFormFragment extends Fragment {
     @OnClick(R2.id.imageButtonAdd)
     public void onImageButtonAddClicked() {
 
-        assertNotEquals(uiFormUnitObject.getIdResRowLayout(), -1);
+        assertNotEquals(idResRowLayout, -1);
 
-        View view = getLayoutInflater().inflate(uiFormUnitObject.getIdResRowLayout(), null);
+        View view = getLayoutInflater().inflate(idResRowLayout, null);
 
-        assertNotNull(uiFormUnitObject.getAddNewRowCallback());
-        uiFormUnitObject.getAddNewRowCallback().onUITableLayoutFormFragmentAddNewButtonAddClicked(view);
+        assertNotNull(addNewRowCallback);
+        addNewRowCallback.onUITableLayoutFormFragmentAddNewButtonAddClicked(view);
 
     }
 
@@ -65,14 +64,14 @@ public class UITableLayoutFormFragment extends Fragment {
         String tag = UUID.randomUUID().toString();
         tableRow.setTag(tag);
 
-        ImageButton deleteButton = tableRow.findViewById(uiFormUnitObject.getButtonDeleteResId());
+        ImageButton deleteButton = tableRow.findViewById(buttonDeleteResId);
 
         if (deleteButton != null)
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    assertNotNull(uiFormUnitObject.getDeleteRowCallback());
-                    uiFormUnitObject.getDeleteRowCallback().onUITableLayoutFormFragmentRowDeleteButtonClicked(
+                    assertNotNull(deleteRowCallback);
+                    deleteRowCallback.onUITableLayoutFormFragmentRowDeleteButtonClicked(
 
                             tableRow
                     );
@@ -81,14 +80,14 @@ public class UITableLayoutFormFragment extends Fragment {
             });
 
 
-        if (uiFormUnitObject.getOnViewInsideRowClickedCallback() != null)
+        if (onViewInsideRowClickedCallback != null)
             for (int i = 0; i < ((ViewGroup) rowChildView).getChildCount(); i++) {
                 View v = ((ViewGroup) rowChildView).getChildAt(i);
                 if (v instanceof TextView)
                     v.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            uiFormUnitObject.getOnViewInsideRowClickedCallback()
+                            onViewInsideRowClickedCallback
                                     .onUITableLayoutFormFragmentViewInsideRowClicked(
                                             view);
                         }
@@ -99,18 +98,11 @@ public class UITableLayoutFormFragment extends Fragment {
         tableLayout.addView(tableRow);
     }
 
-    public static UITableLayoutFormFragment newInstance(UiFormUnitObject uiFormUnitObject) {
-
+    public static UITableLayoutFormFragment newInstance() {
         UITableLayoutFormFragment formUnitFragment = new UITableLayoutFormFragment();
-
-        formUnitFragment.setUiFormUnitObject(uiFormUnitObject);
-
         return formUnitFragment;
     }
 
-    public void setUiFormUnitObject(UiFormUnitObject uiFormUnitObject) {
-        this.uiFormUnitObject = uiFormUnitObject;
-    }
 
     @BindView(R2.id.textViewFormTitle)
     TextView textViewFormTitle;
@@ -122,7 +114,6 @@ public class UITableLayoutFormFragment extends Fragment {
         View view = inflater.inflate(R.layout.base_layout, null);
         ButterKnife.bind(this, view);
 
-        textViewFormTitle.setText(uiFormUnitObject.getTitleOfForm());
 
         return view;
     }

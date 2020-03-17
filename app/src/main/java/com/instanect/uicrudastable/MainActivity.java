@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity
         uiFormUnitObject.setButtonDeleteResId(R.id.buttonDelete);
 
         UITableLayoutFormFragment fragment =
-                UITableLayoutFormFragment.newInstance(uiFormUnitObject);
+                UITableLayoutFormFragment.newInstance();
 
         getSupportFragmentManager()
                 .beginTransaction()
