@@ -70,10 +70,7 @@ public class UITableLayoutFormFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     assertNotNull(deleteRowCallback);
-                    deleteRowCallback.onUITableLayoutFormFragmentRowDeleteButtonClicked(
-
-                            tableRow
-                    );
+                    deleteRowCallback.onUITableLayoutFormFragmentRowDeleteButtonClicked(tableRow);
 
                 }
             });
