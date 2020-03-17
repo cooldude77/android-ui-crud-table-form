@@ -60,7 +60,13 @@ public class UITableLayoutFormFragment extends Fragment {
     public void onAddNewRequestSuccessful(View rowChildView) {
         TableRow tableRow = new TableRow(context);
         tableRow.addView(rowChildView);
+        tableRow.setLayoutParams(
+                new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                        TableRow.LayoutParams.WRAP_CONTENT)
+        );
+
         String tag = UUID.randomUUID().toString();
+
         tableRow.setTag(tag);
 
         ImageButton deleteButton = tableRow.findViewById(buttonDeleteResId);
