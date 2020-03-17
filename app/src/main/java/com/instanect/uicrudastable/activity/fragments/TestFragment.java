@@ -37,7 +37,7 @@ public class TestFragment extends UITableLayoutFormFragment implements UITableLa
     }
 
     @Override
-    public void onUITableLayoutFormFragmentRowDeleteButtonClicked(TableRow rowOnWhichDeleteWasClicked) {
+    public void onUITableLayoutFormFragmentRowDeleteButtonClicked(View rowOnWhichDeleteWasClicked) {
         deleteRow(rowOnWhichDeleteWasClicked);
     }
 

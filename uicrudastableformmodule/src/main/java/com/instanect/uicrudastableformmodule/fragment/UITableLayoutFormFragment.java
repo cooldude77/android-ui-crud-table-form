@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TableLayout;
+import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -54,29 +54,26 @@ public class UITableLayoutFormFragment extends Fragment {
 
     }
 
-    @BindView(R2.id.tableLayout)
-    TableLayout tableLayout;
+    @BindView(R2.id.ll_table_entries)
+    LinearLayout linearLayout;
 
     public void onAddNewRequestSuccessful(View rowChildView) {
-        TableRow tableRow = new TableRow(context);
-        tableRow.addView(rowChildView);
-        tableRow.setLayoutParams(
-                new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.WRAP_CONTENT)
-        );
+        rowChildView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ));
 
         String tag = UUID.randomUUID().toString();
 
-        tableRow.setTag(tag);
+        rowChildView.setTag(tag);
 
-        ImageButton deleteButton = tableRow.findViewById(buttonDeleteResId);
+        ImageButton deleteButton = rowChildView.findViewById(buttonDeleteResId);
 
         if (deleteButton != null)
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     assertNotNull(deleteRowCallback);
-                    deleteRowCallback.onUITableLayoutFormFragmentRowDeleteButtonClicked(tableRow);
+                    deleteRowCallback.onUITableLayoutFormFragmentRowDeleteButtonClicked(rowChildView);
 
                 }
             });
@@ -97,7 +94,7 @@ public class UITableLayoutFormFragment extends Fragment {
             }
 
 
-        tableLayout.addView(tableRow);
+        linearLayout.addView(rowChildView);
     }
 
     public static UITableLayoutFormFragment newInstance() {
@@ -125,8 +122,8 @@ public class UITableLayoutFormFragment extends Fragment {
         super.onAttach(context);
     }
 
-    public void deleteRow(TableRow rowOnWhichDeleteWasClicked) {
-        tableLayout.removeView(rowOnWhichDeleteWasClicked);
+    public void deleteRow(View rowOnWhichDeleteWasClicked) {
+        linearLayout.removeView(rowOnWhichDeleteWasClicked);
     }
 
     public void setMaxRowAllowed(int maxRowAllowed) {

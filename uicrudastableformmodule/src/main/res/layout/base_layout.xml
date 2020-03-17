@@ -38,11 +38,11 @@
         app:barrierDirection="top"
         tools:layout_editor_absoluteY="731dp" />
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:stretchColumns="0"
+    <LinearLayout
+        android:id="@+id/ll_table_entries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonAdd" />
