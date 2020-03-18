@@ -1,8 +1,8 @@
-package com.instanect.uicrudastableformmodule.fragment.view
+package com.instanect.uicrudastableformmodule.ui.view
 
 import android.view.View
 
-class ViewObject {
+public class RowViewTagRelationObject {
     var tag: String? = null
     var view: View? = null
     var isNew: Boolean = true;

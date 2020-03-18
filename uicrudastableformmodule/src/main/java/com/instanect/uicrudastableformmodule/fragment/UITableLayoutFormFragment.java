@@ -18,9 +18,13 @@ import com.instanect.uicrudastableformmodule.R2;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
-import com.instanect.uicrudastableformmodule.fragment.view.ViewObject;
+import com.instanect.uicrudastableformmodule.ui.structure.UIFragmentProperties;
+import com.instanect.uicrudastableformmodule.ui.view.IdFieldValueForARowMap;
+import com.instanect.uicrudastableformmodule.ui.view.RowViewTagRelationObject;
+import com.instanect.uicrudastableformmodule.ui.view.ViewChildIdMapList;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -33,82 +37,102 @@ import static org.junit.Assert.assertNotNull;
 public class UITableLayoutFormFragment extends Fragment {
     private Context context;
 
-    private int maxRowAllowed = 0;
-    private int idResRowLayout = -1;
-    private boolean addAllowed = true;
-    private boolean deleteAllowed = true;
-    private String titleOfForm = "My Form";
-    private UITableLayoutFormFragmentAddNewRowCallback addNewRowCallback;
-    private UITableLayoutFormFragmentDeleteRowCallback deleteRowCallback;
-    private UITableLayoutFormFragmentOnViewInsideRowClicked onViewInsideRowClickedCallback;
-    private int buttonDeleteResId = -1;
+
+    UIFragmentProperties uiFragmentProperties = new UIFragmentProperties();
 
     @OnClick(R2.id.imageButtonAdd)
     void onImageButtonAddClicked() {
-
-        assertNotEquals(idResRowLayout, -1);
-
-        View view = getLayoutInflater().inflate(idResRowLayout, null);
-
-        assertNotNull(addNewRowCallback);
-        addNewRowCallback.onUITableLayoutFormFragmentAddNewButtonAddClicked(view);
-
+        assertNotEquals(uiFragmentProperties.getIdResRowLayout(), -1);
+        View view = getLayoutInflater().inflate(uiFragmentProperties.getIdResRowLayout(), null);
+        assertNotNull(uiFragmentProperties.getAddNewRowCallback());
+        uiFragmentProperties.getAddNewRowCallback().onUITableLayoutFormFragmentAddNewButtonAddClicked(view);
     }
 
     @BindView(R2.id.layout_table_entries)
     LinearLayout linearLayout;
 
-    ArrayList<ViewObject> viewObjects = new ArrayList<>();
+    private ArrayList<RowViewTagRelationObject> rowViewTagRelationObjects = new ArrayList<>();
+    private ViewChildIdMapList viewChildIdMapList = new ViewChildIdMapList();
 
-    public ArrayList<ViewObject> getViewObjects() {
-        return viewObjects;
+    public ArrayList<RowViewTagRelationObject> getRowViewTagRelationObjects() {
+        return rowViewTagRelationObjects;
+    }
+
+    public void setViewChildIdMapList(ViewChildIdMapList viewChildIdMapList) {
+        this.viewChildIdMapList = viewChildIdMapList;
+    }
+
+    public ViewChildIdMapList getViewChildIdMapList() {
+        return viewChildIdMapList;
+    }
+
+    public ArrayList<IdFieldValueForARowMap> getData() {
+        ArrayList<IdFieldValueForARowMap> idFieldValueForARowMaps = new ArrayList<>();
+        for (int i = 0; i < rowViewTagRelationObjects.size(); i++) {
+            View parent = rowViewTagRelationObjects.get(i).getView();
+
+            idFieldValueForARowMaps.add(getIdValueMap(parent));
+
+        }
+        return idFieldValueForARowMaps;
+    }
+
+    private IdFieldValueForARowMap getIdValueMap(View parent) {
+        IdFieldValueForARowMap idValueMap = new IdFieldValueForARowMap();
+
+        for (Map.Entry<Class<? extends View>, Integer> entry : viewChildIdMapList.entrySet()) {
+            Class aClass = entry.getKey();
+            int id = entry.getValue();
+            assert parent != null;
+            View view = parent.findViewById(id);
+            if (view != null) {
+                String value = null;
+                if (aClass.equals(TextView.class)) {
+                    value = ((TextView) view).getText().toString();
+                }
+                idValueMap.put(id, value);
+            }
+
+        }
+        return idValueMap;
+
     }
 
     public void onAddNewRequestSuccessful(View rowChildView) {
-
 
         String tag = UUID.randomUUID().toString();
 
         rowChildView.setTag(tag);
 
-        ViewObject viewObject = new ViewObject();
+        RowViewTagRelationObject rowViewTagRelationObject = new RowViewTagRelationObject();
+        rowViewTagRelationObject.setTag(tag);
+        rowViewTagRelationObject.setView(rowChildView);
+        rowViewTagRelationObjects.add(rowViewTagRelationObject);
 
-        viewObject.setTag(tag);
-        viewObject.setView(rowChildView);
-        viewObjects.add(viewObject);
-
-        ImageButton deleteButton = rowChildView.findViewById(buttonDeleteResId);
+        ImageButton deleteButton = rowChildView.findViewById(uiFragmentProperties
+                .getButtonDeleteResId());
 
         if (deleteButton != null)
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    assertNotNull(deleteRowCallback);
-                    deleteRowCallback.onUITableLayoutFormFragmentRowDeleteButtonClicked(rowChildView);
-
-                }
+            deleteButton.setOnClickListener(v -> {
+                assertNotNull(uiFragmentProperties.getDeleteRowCallback());
+                uiFragmentProperties.getDeleteRowCallback()
+                        .onUITableLayoutFormFragmentRowDeleteButtonClicked(rowChildView);
             });
 
-
-        if (onViewInsideRowClickedCallback != null)
+        if (uiFragmentProperties.getOnViewInsideRowClickedCallback() != null)
             for (int i = 0; i < ((ViewGroup) rowChildView).getChildCount(); i++) {
                 View v = ((ViewGroup) rowChildView).getChildAt(i);
                 if (v instanceof TextView)
-                    v.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onViewInsideRowClickedCallback
-                                    .onUITableLayoutFormFragmentViewInsideRowClicked(
-                                            view);
-                        }
-                    });
+                    v.setOnClickListener(view ->
+                            uiFragmentProperties.getOnViewInsideRowClickedCallback()
+                                    .onUITableLayoutFormFragmentViewInsideRowClicked(view));
             }
-
 
         // This looks better
         linearLayout.addView(rowChildView,
                 new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
     public static UITableLayoutFormFragment newInstance() {
@@ -122,10 +146,11 @@ public class UITableLayoutFormFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.base_layout, null);
         ButterKnife.bind(this, view);
-
 
         return view;
     }
@@ -141,38 +166,39 @@ public class UITableLayoutFormFragment extends Fragment {
     }
 
     public void setMaxRowAllowed(int maxRowAllowed) {
-        this.maxRowAllowed = maxRowAllowed;
+        uiFragmentProperties.setMaxRowAllowed(maxRowAllowed);
     }
 
     protected void setIdResRowLayout(int idResRowLayout) {
-        this.idResRowLayout = idResRowLayout;
+        uiFragmentProperties.setIdResRowLayout(idResRowLayout);
     }
 
     public void setButtonDeleteResId(int buttonDeleteResId) {
-        this.buttonDeleteResId = buttonDeleteResId;
+        uiFragmentProperties.setButtonDeleteResId(buttonDeleteResId);
     }
 
     public void setAddAllowed(boolean addAllowed) {
-        this.addAllowed = addAllowed;
+        uiFragmentProperties.setAddAllowed(addAllowed);
     }
 
     public void setDeleteAllowed(boolean deleteAllowed) {
-        this.deleteAllowed = deleteAllowed;
+        uiFragmentProperties.setDeleteAllowed(deleteAllowed);
     }
 
     public void setTitleOfForm(String titleOfForm) {
-        this.titleOfForm = titleOfForm;
+        uiFragmentProperties.setTitleOfForm(titleOfForm);
     }
 
     protected void setAddNewRowCallback(UITableLayoutFormFragmentAddNewRowCallback addNewRowCallback) {
-        this.addNewRowCallback = addNewRowCallback;
+        uiFragmentProperties.setAddNewRowCallback(addNewRowCallback);
     }
 
     protected void setDeleteRowCallback(UITableLayoutFormFragmentDeleteRowCallback deleteRowCallback) {
-        this.deleteRowCallback = deleteRowCallback;
+        uiFragmentProperties.setDeleteRowCallback(deleteRowCallback);
     }
 
-    protected void setOnViewInsideRowClickedCallback(UITableLayoutFormFragmentOnViewInsideRowClicked onViewInsideRowClickedCallback) {
-        this.onViewInsideRowClickedCallback = onViewInsideRowClickedCallback;
+    protected void setOnViewInsideRowClickedCallback(
+            UITableLayoutFormFragmentOnViewInsideRowClicked onViewInsideRowClickedCallback) {
+        uiFragmentProperties.setOnViewInsideRowClickedCallback(onViewInsideRowClickedCallback);
     }
 }
