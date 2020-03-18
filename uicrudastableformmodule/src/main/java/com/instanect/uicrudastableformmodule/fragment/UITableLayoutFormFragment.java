@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +18,9 @@ import com.instanect.uicrudastableformmodule.R2;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
+import com.instanect.uicrudastableformmodule.fragment.view.ViewObject;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -57,12 +58,24 @@ public class UITableLayoutFormFragment extends Fragment {
     @BindView(R2.id.layout_table_entries)
     LinearLayout linearLayout;
 
+    ArrayList<ViewObject> viewObjects = new ArrayList<>();
+
+    public ArrayList<ViewObject> getViewObjects() {
+        return viewObjects;
+    }
+
     public void onAddNewRequestSuccessful(View rowChildView) {
 
 
         String tag = UUID.randomUUID().toString();
 
         rowChildView.setTag(tag);
+
+        ViewObject viewObject = new ViewObject();
+
+        viewObject.setTag(tag);
+        viewObject.setView(rowChildView);
+        viewObjects.add(viewObject);
 
         ImageButton deleteButton = rowChildView.findViewById(buttonDeleteResId);
 
@@ -95,7 +108,7 @@ public class UITableLayoutFormFragment extends Fragment {
         // This looks better
         linearLayout.addView(rowChildView,
                 new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
     public static UITableLayoutFormFragment newInstance() {
