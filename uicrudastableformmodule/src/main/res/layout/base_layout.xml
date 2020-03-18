@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/ui_fragment_base_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -39,7 +39,7 @@
         tools:layout_editor_absoluteY="731dp" />
 
     <LinearLayout
-        android:id="@+id/ll_table_entries"
+        android:id="@+id/layout_table_entries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
