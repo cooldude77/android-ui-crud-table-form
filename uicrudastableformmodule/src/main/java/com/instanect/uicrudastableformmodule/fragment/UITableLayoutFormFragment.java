@@ -54,7 +54,7 @@ public class UITableLayoutFormFragment extends Fragment {
 
     }
 
-    @BindView(R2.id.ll_table_entries)
+    @BindView(R2.id.layout_table_entries)
     LinearLayout linearLayout;
 
     public void onAddNewRequestSuccessful(View rowChildView) {
