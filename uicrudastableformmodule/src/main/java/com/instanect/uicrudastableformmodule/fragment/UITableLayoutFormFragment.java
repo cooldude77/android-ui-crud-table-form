@@ -95,7 +95,7 @@ public class UITableLayoutFormFragment extends Fragment {
         // This looks better
         linearLayout.addView(rowChildView,
                 new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
     public static UITableLayoutFormFragment newInstance() {
