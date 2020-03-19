@@ -19,12 +19,11 @@ import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFo
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
 import com.instanect.uicrudastableformmodule.ui.structure.UIFragmentProperties;
+import com.instanect.uicrudastableformmodule.ui.view.ChildIdList;
 import com.instanect.uicrudastableformmodule.ui.view.IdFieldValueForARowMap;
 import com.instanect.uicrudastableformmodule.ui.view.RowViewTagRelationObject;
-import com.instanect.uicrudastableformmodule.ui.view.ViewChildIdMapList;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -52,18 +51,18 @@ public class UITableLayoutFormFragment extends Fragment {
     LinearLayout linearLayout;
 
     private ArrayList<RowViewTagRelationObject> rowViewTagRelationObjects = new ArrayList<>();
-    private ViewChildIdMapList viewChildIdMapList = new ViewChildIdMapList();
+    private ChildIdList childIdList = new ChildIdList();
 
     public ArrayList<RowViewTagRelationObject> getRowViewTagRelationObjects() {
         return rowViewTagRelationObjects;
     }
 
-    public void setViewChildIdMapList(ViewChildIdMapList viewChildIdMapList) {
-        this.viewChildIdMapList = viewChildIdMapList;
+    public void setChildIdList(ChildIdList childIdList) {
+        this.childIdList = childIdList;
     }
 
-    public ViewChildIdMapList getViewChildIdMapList() {
-        return viewChildIdMapList;
+    public ChildIdList getChildIdList() {
+        return childIdList;
     }
 
     public ArrayList<IdFieldValueForARowMap> getData() {
@@ -80,17 +79,16 @@ public class UITableLayoutFormFragment extends Fragment {
     private IdFieldValueForARowMap getIdValueMap(View parent) {
         IdFieldValueForARowMap idValueMap = new IdFieldValueForARowMap();
 
-        for (Map.Entry<Class<? extends View>, Integer> entry : viewChildIdMapList.entrySet()) {
-            Class aClass = entry.getKey();
-            int id = entry.getValue();
+        for (Integer integer : childIdList) {
             assert parent != null;
-            View view = parent.findViewById(id);
+            View view = parent.findViewById(integer);
             if (view != null) {
                 String value = null;
-                if (aClass.equals(TextView.class)) {
+                if (view instanceof TextView) {
                     value = ((TextView) view).getText().toString();
+                    idValueMap.put(integer, value);
                 }
-                idValueMap.put(id, value);
+
             }
 
         }

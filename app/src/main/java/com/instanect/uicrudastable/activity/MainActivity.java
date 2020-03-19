@@ -1,11 +1,17 @@
 package com.instanect.uicrudastable.activity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.instanect.uicrudastable.R;
 import com.instanect.uicrudastable.activity.fragments.TestFragment;
+import com.instanect.uicrudastableformmodule.ui.view.IdFieldValueForARowMap;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         TestFragment fragment = new
-                 TestFragment();
+                TestFragment();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -26,4 +32,22 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.test, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.get) {
+            ArrayList<IdFieldValueForARowMap> data
+                    = ((TestFragment) getSupportFragmentManager()
+                    .findFragmentByTag(FRAG_TAG))
+                    .getData();
+            int i = 0;
+            i++;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

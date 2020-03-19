@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableRow;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +15,7 @@ import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragment;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
+import com.instanect.uicrudastableformmodule.ui.view.ChildIdList;
 
 public class TestFragment extends UITableLayoutFormFragment implements UITableLayoutFormFragmentAddNewRowCallback, UITableLayoutFormFragmentDeleteRowCallback, UITableLayoutFormFragmentOnViewInsideRowClicked {
 
@@ -27,6 +28,12 @@ public class TestFragment extends UITableLayoutFormFragment implements UITableLa
         setOnViewInsideRowClickedCallback(this);
         setIdResRowLayout(R.layout.example_row);
         setButtonDeleteResId(R.id.buttonDelete);
+
+        ChildIdList mapList = new ChildIdList();
+        mapList.add(R.id.editText);
+        setChildIdList(mapList);
+
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
