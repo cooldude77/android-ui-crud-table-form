@@ -4,30 +4,33 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.instanect.uicrudastable.R;
-import com.instanect.uicrudastableformmodule.fragment.UITableLayoutFormFragment;
+import com.instanect.uicrudastableformmodule.fragment.UIEditOrCreateTableFormFragment;
+import com.instanect.uicrudastableformmodule.fragment.base.UIFragmentBaseProperties;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
 import com.instanect.uicrudastableformmodule.ui.view.ChildIdList;
 
-public class TestFragment extends UITableLayoutFormFragment implements UITableLayoutFormFragmentAddNewRowCallback, UITableLayoutFormFragmentDeleteRowCallback, UITableLayoutFormFragmentOnViewInsideRowClicked {
+public class TestFragment extends UIEditOrCreateTableFormFragment implements UITableLayoutFormFragmentAddNewRowCallback, UITableLayoutFormFragmentDeleteRowCallback, UITableLayoutFormFragmentOnViewInsideRowClicked {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        setAddNewRowCallback(this);
-        setDeleteRowCallback(this);
-        setOnViewInsideRowClickedCallback(this);
-        setIdResRowLayout(R.layout.example_row);
-        setButtonDeleteResId(R.id.buttonDelete);
+
+        UIFragmentBaseProperties baseProperties = uiEditOrCreateFragmentProperties.getUiFragmentBaseProperties();
+        baseProperties.setIdResRowLayout(R.layout.example_row);
+
+        uiEditOrCreateFragmentProperties.setAddNewRowCallback(this);
+        uiEditOrCreateFragmentProperties.setDeleteRowCallback(this);
+        uiEditOrCreateFragmentProperties.setOnViewInsideRowClickedCallback(this);
+        uiEditOrCreateFragmentProperties.setButtonDeleteResId(R.id.buttonDelete);
 
         ChildIdList mapList = new ChildIdList();
         mapList.add(R.id.editText);
@@ -40,7 +43,7 @@ public class TestFragment extends UITableLayoutFormFragment implements UITableLa
 
     @Override
     public void onUITableLayoutFormFragmentAddNewButtonAddClicked(View view) {
-        onAddNewRequestSuccessful(view);
+        addNewRow(view);
     }
 
     @Override
