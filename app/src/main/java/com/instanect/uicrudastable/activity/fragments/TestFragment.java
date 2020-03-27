@@ -10,12 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.instanect.uicrudastable.R;
-import com.instanect.uicrudastableformmodule.fragment.UIEditOrCreateTableFormFragment;
-import com.instanect.uicrudastableformmodule.fragment.base.UIFragmentBaseProperties;
-import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
-import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
-import com.instanect.uicrudastableformmodule.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
-import com.instanect.uicrudastableformmodule.ui.view.ChildIdList;
+import com.instanect.uicrudastableformmodule.createOrEdit.fragment.UIEditOrCreateTableFormFragment;
+import com.instanect.uicrudastableformmodule.base.UIFragmentBaseProperties;
+import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
+import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
+import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
+import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.ChildIdList;
 
 public class TestFragment extends UIEditOrCreateTableFormFragment implements UITableLayoutFormFragmentAddNewRowCallback, UITableLayoutFormFragmentDeleteRowCallback, UITableLayoutFormFragmentOnViewInsideRowClicked {
 

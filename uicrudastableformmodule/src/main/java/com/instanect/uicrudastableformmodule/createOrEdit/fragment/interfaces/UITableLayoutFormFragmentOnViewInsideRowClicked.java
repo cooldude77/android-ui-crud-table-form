@@ -1,4 +1,4 @@
-package com.instanect.uicrudastableformmodule.fragment.interfaces;
+package com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces;
 
 import android.view.View;
 

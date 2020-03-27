@@ -1,4 +1,4 @@
-package com.instanect.uicrudastableformmodule.fragment.base
+package com.instanect.uicrudastableformmodule.base
 
 class UIFragmentBaseProperties {
     var maxRowAllowed = 0

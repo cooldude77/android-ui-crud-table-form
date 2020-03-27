@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.instanect.uicrudastable.R;
 import com.instanect.uicrudastable.activity.fragments.TestFragment;
-import com.instanect.uicrudastableformmodule.ui.view.IdFieldValueForARowMap;
+import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.IdFieldValueForARowMap;
 
 import java.util.ArrayList;
 

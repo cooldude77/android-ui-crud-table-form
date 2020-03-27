@@ -1,9 +1,6 @@
-package com.instanect.uicrudastableformmodule.ui.view;
-
-import android.view.View;
+package com.instanect.uicrudastableformmodule.createOrEdit.ui.view;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Map list between the view type and id for that view type in each row

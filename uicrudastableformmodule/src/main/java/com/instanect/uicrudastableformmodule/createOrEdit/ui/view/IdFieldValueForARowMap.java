@@ -1,4 +1,4 @@
-package com.instanect.uicrudastableformmodule.ui.view;
+package com.instanect.uicrudastableformmodule.createOrEdit.ui.view;
 
 import java.util.HashMap;
 
