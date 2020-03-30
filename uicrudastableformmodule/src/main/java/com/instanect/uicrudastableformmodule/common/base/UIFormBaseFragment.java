@@ -33,6 +33,9 @@ abstract public class UIFormBaseFragment extends Fragment {
     private ArrayList<IdFieldValueForARowMap> valueList = new ArrayList<>();
     private View view;
 
+    protected View getBaseFragmentView() {
+        return view;
+    }
     // Override this and initialize in derived fragments
 
     protected UIFragmentBaseProperties uiFragmentProperties;
@@ -115,8 +118,9 @@ abstract public class UIFormBaseFragment extends Fragment {
                 } else if (field instanceof TextView)
                     ((TextView) field).setText(entry.getValue());
 
-
             }
+
+            linearLayout.addView(row);
         }
     }
 }

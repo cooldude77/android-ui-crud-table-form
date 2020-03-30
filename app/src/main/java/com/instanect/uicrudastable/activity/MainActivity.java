@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.instanect.uicrudastable.R;
+import com.instanect.uicrudastable.activity.fragments.TestDisplayFragment;
 import com.instanect.uicrudastable.activity.fragments.TestEditCreateFragment;
 import com.instanect.uicrudastableformmodule.common.view.IdFieldValueForARowMap;
 
@@ -23,6 +24,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        TestDisplayFragment fragment = new
+                TestDisplayFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameLayout, fragment, FRAG_TAG)
+                .commit();
+
+        /*
         TestEditCreateFragment fragment = new
                 TestEditCreateFragment();
 
@@ -30,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.frameLayout, fragment, FRAG_TAG)
                 .commit();
+
+
+         */
+
     }
 
     @Override

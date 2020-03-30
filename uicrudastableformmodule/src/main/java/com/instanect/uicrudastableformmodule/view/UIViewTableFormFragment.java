@@ -1,13 +1,25 @@
 package com.instanect.uicrudastableformmodule.view;
 
-import com.instanect.uicrudastableformmodule.common.base.UIFormBaseFragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.instanect.uicrudastableformmodule.common.base.UIFormBaseFragment;
 
 public class UIViewTableFormFragment extends UIFormBaseFragment {
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
+        fillData();
 
+        return getBaseFragmentView();
+    }
 
 }
