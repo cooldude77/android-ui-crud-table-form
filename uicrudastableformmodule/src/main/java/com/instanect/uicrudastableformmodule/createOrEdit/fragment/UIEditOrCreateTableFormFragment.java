@@ -21,21 +21,20 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
-
-
-    private UIEditOrCreateFragmentProperties uiEditOrCreateFragmentProperties;
-
+    
     @OnClick(R2.id.imageButtonAdd)
     void onImageButtonAddClicked() {
         assertNotEquals(
-                uiEditOrCreateFragmentProperties
+                getUiFragmentProperties()
                         .getIdResRowLayout(), -1);
         View view = getLayoutInflater().inflate(
-                uiEditOrCreateFragmentProperties.getIdResRowLayout(), null);
+                getUiFragmentProperties().getIdResRowLayout(), null);
 
-        assertNotNull(uiEditOrCreateFragmentProperties.getAddNewRowCallback());
+        assertNotNull(getUiFragmentProperties().getAddNewRowCallback());
 
-        uiEditOrCreateFragmentProperties.getAddNewRowCallback().onUITableLayoutFormFragmentAddNewButtonAddClicked(view);
+        getUiFragmentProperties()
+                .getAddNewRowCallback()
+                .onUITableLayoutFormFragmentAddNewButtonAddClicked(view);
     }
 
 
@@ -83,22 +82,22 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
         rowViewAndItsTagRelationObject.setView(rowChildView);
         getRowViewAndItsTagRelationObjects().add(rowViewAndItsTagRelationObject);
 
-        ImageButton deleteButton = rowChildView.findViewById(uiEditOrCreateFragmentProperties
+        ImageButton deleteButton = rowChildView.findViewById(getUiFragmentProperties()
                 .getButtonDeleteResId());
 
         if (deleteButton != null)
             deleteButton.setOnClickListener(v -> {
-                assertNotNull(uiEditOrCreateFragmentProperties.getDeleteRowCallback());
-                uiEditOrCreateFragmentProperties.getDeleteRowCallback()
+                assertNotNull(getUiFragmentProperties().getDeleteRowCallback());
+                getUiFragmentProperties().getDeleteRowCallback()
                         .onUITableLayoutFormFragmentRowDeleteButtonClicked(rowChildView);
             });
 
-        if (uiEditOrCreateFragmentProperties.getOnViewInsideRowClickedCallback() != null)
+        if (getUiFragmentProperties().getOnViewInsideRowClickedCallback() != null)
             for (int i = 0; i < ((ViewGroup) rowChildView).getChildCount(); i++) {
                 View v = ((ViewGroup) rowChildView).getChildAt(i);
                 if (v instanceof TextView)
                     v.setOnClickListener(view ->
-                            uiEditOrCreateFragmentProperties.getOnViewInsideRowClickedCallback()
+                            getUiFragmentProperties().getOnViewInsideRowClickedCallback()
                                     .onUITableLayoutFormFragmentViewInsideRowClicked(view));
             }
 
@@ -113,5 +112,8 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
         getLinearLayout().removeView(rowOnWhichDeleteWasClicked);
     }
 
-
+    @Override
+    public UIEditOrCreateFragmentProperties getUiFragmentProperties() {
+        return (UIEditOrCreateFragmentProperties) super.getUiFragmentProperties();
+    }
 }

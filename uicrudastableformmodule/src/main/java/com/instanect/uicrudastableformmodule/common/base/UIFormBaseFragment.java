@@ -45,6 +45,10 @@ abstract public class UIFormBaseFragment extends Fragment {
         this.uiFragmentProperties = uiFragmentBaseProperties;
     }
 
+    public UIFragmentBaseProperties getUiFragmentProperties() {
+        return uiFragmentProperties;
+    }
+
     protected void setChildIdList(ChildIdList childIdList) {
         this.childIdList = childIdList;
     }
