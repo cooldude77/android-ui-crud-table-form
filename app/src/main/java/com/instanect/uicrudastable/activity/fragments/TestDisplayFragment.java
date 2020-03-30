@@ -36,8 +36,8 @@ public class TestDisplayFragment extends UIViewTableFormFragment {
         map1.put(R.id.tv2, String.valueOf(100));
 
         IdFieldValueForARowMap map2 = new IdFieldValueForARowMap();
-        map1.put(R.id.tv1, String.valueOf(200));
-        map1.put(R.id.tv2, String.valueOf(200));
+        map2.put(R.id.tv1, String.valueOf(200));
+        map2.put(R.id.tv2, String.valueOf(200));
 
         getValueList().add(map1);
         getValueList().add(map2);
