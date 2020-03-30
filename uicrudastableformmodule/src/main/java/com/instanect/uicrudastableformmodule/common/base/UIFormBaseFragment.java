@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.R2;
+import com.instanect.uicrudastableformmodule.common.base.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
 import com.instanect.uicrudastableformmodule.common.view.ChildIdList;
 import com.instanect.uicrudastableformmodule.common.view.IdFieldValueForARowMap;
 import com.instanect.uicrudastableformmodule.common.view.RowViewAndItsTagRelationObject;
@@ -26,7 +27,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-abstract public class UIFormBaseFragment extends Fragment {
+abstract public class UIFormBaseFragment extends Fragment implements UITableLayoutFormFragmentOnViewInsideRowClicked {
     private Context context;
     private ArrayList<RowViewAndItsTagRelationObject> rowViewAndItsTagRelationObjects = new ArrayList<>();
     private ChildIdList childIdList = new ChildIdList();
@@ -98,6 +99,8 @@ abstract public class UIFormBaseFragment extends Fragment {
                 null);
         ButterKnife.bind(this, view);
 
+        uiFragmentProperties.setOnViewInsideRowClickedCallback(this);
+
         textViewFormTitle.setText(uiFragmentProperties.getTitleOfForm());
 
         return view;
@@ -133,9 +136,24 @@ abstract public class UIFormBaseFragment extends Fragment {
                 } else if (field instanceof TextView)
                     ((TextView) field).setText(entry.getValue());
 
+                addOnClickListenerToView(field);
             }
-
             linearLayout.addView(row);
         }
+    }
+
+    protected void addOnClickListenerToView(View field) {
+
+        if (uiFragmentProperties.getOnViewInsideRowClickedCallback() != null)
+            field.setOnClickListener(v -> {
+                uiFragmentProperties.getOnViewInsideRowClickedCallback()
+                        .onUITableLayoutFormFragmentViewInsideRowClicked(v);
+            });
+
+    }
+
+    @Override
+    public void onUITableLayoutFormFragmentViewInsideRowClicked(View view) {
+        // override this if you need
     }
 }

@@ -16,6 +16,8 @@ import com.instanect.uicrudastableformmodule.R2;
 import com.instanect.uicrudastableformmodule.common.base.UIFormBaseFragment;
 import com.instanect.uicrudastableformmodule.common.view.IdFieldValueForARowMap;
 import com.instanect.uicrudastableformmodule.common.view.RowViewAndItsTagRelationObject;
+import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
+import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.createOrEdit.ui.structure.UIEditOrCreateFragmentProperties;
 
 import java.util.ArrayList;
@@ -26,14 +28,25 @@ import butterknife.OnClick;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
+public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment
+        implements UITableLayoutFormFragmentDeleteRowCallback,
+        UITableLayoutFormFragmentAddNewRowCallback {
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setContentViewResId(R.layout.base_layout_create);
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        getUiFragmentProperties().setAddNewRowCallback(this);
+        getUiFragmentProperties().setDeleteRowCallback(this);
+
+
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        fillData();
+
+        return getBaseFragmentView();
     }
 
     @OnClick(R2.id.imageButtonAdd)
@@ -87,15 +100,33 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
 
     public void addNewRow(View rowChildView) {
 
-        String tag = UUID.randomUUID().toString();
+        addTag(rowChildView);
+        setOnClickViewListener(rowChildView);
+        setDeleteListener(rowChildView);
+        addRow(rowChildView);
 
-        rowChildView.setTag(tag);
+    }
 
-        RowViewAndItsTagRelationObject rowViewAndItsTagRelationObject = new RowViewAndItsTagRelationObject();
-        rowViewAndItsTagRelationObject.setTag(tag);
-        rowViewAndItsTagRelationObject.setView(rowChildView);
-        getRowViewAndItsTagRelationObjects().add(rowViewAndItsTagRelationObject);
+    private void addRow(View rowChildView) {
+        // This looks better
+        getLinearLayout().addView(rowChildView,
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
 
+    }
+
+    private void setOnClickViewListener(View rowChildView) {
+        if (getUiFragmentProperties().getOnViewInsideRowClickedCallback() != null)
+            for (int i = 0; i < ((ViewGroup) rowChildView).getChildCount(); i++) {
+                View v = ((ViewGroup) rowChildView).getChildAt(i);
+                if (v.getId() != getUiFragmentProperties().getButtonDeleteResId())
+                    addOnClickListenerToView(v);
+            }
+
+    }
+
+    private void setDeleteListener(View rowChildView) {
         ImageButton deleteButton = rowChildView.findViewById(getUiFragmentProperties()
                 .getButtonDeleteResId());
 
@@ -106,20 +137,17 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
                         .onUITableLayoutFormFragmentRowDeleteButtonClicked(rowChildView);
             });
 
-        if (getUiFragmentProperties().getOnViewInsideRowClickedCallback() != null)
-            for (int i = 0; i < ((ViewGroup) rowChildView).getChildCount(); i++) {
-                View v = ((ViewGroup) rowChildView).getChildAt(i);
-                if (v instanceof TextView)
-                    v.setOnClickListener(view ->
-                            getUiFragmentProperties().getOnViewInsideRowClickedCallback()
-                                    .onUITableLayoutFormFragmentViewInsideRowClicked(view));
-            }
+    }
 
-        // This looks better
-        getLinearLayout().addView(rowChildView,
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT));
+    private void addTag(View rowChildView) {
+
+        String tag = UUID.randomUUID().toString();
+        rowChildView.setTag(tag);
+        RowViewAndItsTagRelationObject rowViewAndItsTagRelationObject = new RowViewAndItsTagRelationObject();
+        rowViewAndItsTagRelationObject.setTag(tag);
+        rowViewAndItsTagRelationObject.setView(rowChildView);
+        getRowViewAndItsTagRelationObjects().add(rowViewAndItsTagRelationObject);
+
     }
 
     public void deleteRow(View rowOnWhichDeleteWasClicked) {
@@ -129,5 +157,16 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
     @Override
     public UIEditOrCreateFragmentProperties getUiFragmentProperties() {
         return (UIEditOrCreateFragmentProperties) super.getUiFragmentProperties();
+    }
+
+    @Override
+    public void onUITableLayoutFormFragmentAddNewButtonAddClicked(View view) {
+
+        // override these
+    }
+
+    @Override
+    public void onUITableLayoutFormFragmentRowDeleteButtonClicked(View rowOnWhichDeleteWasClicked) {
+        // override these
     }
 }

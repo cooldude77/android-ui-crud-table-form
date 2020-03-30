@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,4 +46,9 @@ public class TestDisplayFragment extends UIViewTableFormFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void onUITableLayoutFormFragmentViewInsideRowClicked(View view) {
+        super.onUITableLayoutFormFragmentViewInsideRowClicked(view);
+        Toast.makeText(getContext(), "Hello world", Toast.LENGTH_SHORT).show();
+    }
 }

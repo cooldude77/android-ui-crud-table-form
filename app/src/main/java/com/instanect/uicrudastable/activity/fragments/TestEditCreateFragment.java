@@ -10,28 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.instanect.uicrudastable.R;
-import com.instanect.uicrudastableformmodule.createOrEdit.fragment.UIEditOrCreateTableFormFragment;
-import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
-import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
-import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
-
 import com.instanect.uicrudastableformmodule.common.view.ChildIdList;
+import com.instanect.uicrudastableformmodule.common.view.IdFieldValueForARowMap;
+import com.instanect.uicrudastableformmodule.createOrEdit.fragment.UIEditOrCreateTableFormFragment;
 import com.instanect.uicrudastableformmodule.createOrEdit.ui.structure.UIEditOrCreateFragmentProperties;
 
-public class TestEditCreateFragment extends UIEditOrCreateTableFormFragment implements UITableLayoutFormFragmentAddNewRowCallback, UITableLayoutFormFragmentDeleteRowCallback, UITableLayoutFormFragmentOnViewInsideRowClicked {
+public class TestEditCreateFragment extends UIEditOrCreateTableFormFragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // initializing properties
-        UIEditOrCreateFragmentProperties uiEditOrCreateFragmentProperties =  new UIEditOrCreateFragmentProperties();
+        UIEditOrCreateFragmentProperties uiEditOrCreateFragmentProperties = new UIEditOrCreateFragmentProperties();
 
         uiEditOrCreateFragmentProperties.setIdResRowLayout(R.layout.example_row_create_edit);
-
-        uiEditOrCreateFragmentProperties.setAddNewRowCallback(this);
-        uiEditOrCreateFragmentProperties.setDeleteRowCallback(this);
-        uiEditOrCreateFragmentProperties.setOnViewInsideRowClickedCallback(this);
         uiEditOrCreateFragmentProperties.setButtonDeleteResId(R.id.buttonDelete);
 
         setUIFragmentProperties(uiEditOrCreateFragmentProperties);
@@ -41,6 +34,18 @@ public class TestEditCreateFragment extends UIEditOrCreateTableFormFragment impl
         mapList.add(R.id.editText);
 
         setChildIdList(mapList);
+
+
+        IdFieldValueForARowMap map1 = new IdFieldValueForARowMap();
+        map1.put(R.id.editText, String.valueOf(100));
+        map1.put(R.id.checkBox, String.valueOf(true));
+
+        IdFieldValueForARowMap map2 = new IdFieldValueForARowMap();
+        map2.put(R.id.editText, String.valueOf(200));
+        map2.put(R.id.checkBox, String.valueOf(false));
+
+        getValueList().add(map1);
+        getValueList().add(map2);
 
 
         return super.onCreateView(inflater, container, savedInstanceState);
