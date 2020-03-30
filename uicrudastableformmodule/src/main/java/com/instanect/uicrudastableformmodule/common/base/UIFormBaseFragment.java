@@ -33,6 +33,12 @@ abstract public class UIFormBaseFragment extends Fragment {
     private ArrayList<IdFieldValueForARowMap> valueList = new ArrayList<>();
     private View view;
 
+    private int contentViewResId = -1;
+
+    public void setContentViewResId(int contentViewResId) {
+        this.contentViewResId = contentViewResId;
+    }
+
     protected View getBaseFragmentView() {
         return view;
     }
@@ -87,8 +93,13 @@ abstract public class UIFormBaseFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.base_layout, null);
+        view = inflater.inflate(
+                contentViewResId != -1 ? contentViewResId : R.layout.base_layout_display,
+                null);
         ButterKnife.bind(this, view);
+
+        textViewFormTitle.setText(uiFragmentProperties.getTitleOfForm());
+
         return view;
     }
 

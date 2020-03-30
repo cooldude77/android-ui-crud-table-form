@@ -1,11 +1,17 @@
 package com.instanect.uicrudastableformmodule.createOrEdit.fragment;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.R2;
 import com.instanect.uicrudastableformmodule.common.base.UIFormBaseFragment;
 import com.instanect.uicrudastableformmodule.common.view.IdFieldValueForARowMap;
@@ -21,7 +27,15 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
-    
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setContentViewResId(R.layout.base_layout_create);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     @OnClick(R2.id.imageButtonAdd)
     void onImageButtonAddClicked() {
         assertNotEquals(

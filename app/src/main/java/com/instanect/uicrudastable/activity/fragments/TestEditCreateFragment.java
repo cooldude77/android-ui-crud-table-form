@@ -27,7 +27,7 @@ public class TestEditCreateFragment extends UIEditOrCreateTableFormFragment impl
         // initializing properties
         UIEditOrCreateFragmentProperties uiEditOrCreateFragmentProperties =  new UIEditOrCreateFragmentProperties();
 
-        uiEditOrCreateFragmentProperties.setIdResRowLayout(R.layout.example_row);
+        uiEditOrCreateFragmentProperties.setIdResRowLayout(R.layout.example_row_create_edit);
 
         uiEditOrCreateFragmentProperties.setAddNewRowCallback(this);
         uiEditOrCreateFragmentProperties.setDeleteRowCallback(this);

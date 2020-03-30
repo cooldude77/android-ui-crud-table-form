@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.common.base.UIFormBaseFragment;
 
 public class UIViewTableFormFragment extends UIFormBaseFragment {
@@ -15,6 +16,9 @@ public class UIViewTableFormFragment extends UIFormBaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        setContentViewResId(R.layout.base_layout_display);
+
         super.onCreateView(inflater, container, savedInstanceState);
 
         fillData();
