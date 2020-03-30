@@ -5,8 +5,7 @@ import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UI
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked
 
-class UIEditOrCreateFragmentProperties() {
-    var uiFragmentBaseProperties = UIFragmentBaseProperties()
+class UIEditOrCreateFragmentProperties : UIFragmentBaseProperties() {
     var addAllowed = true
     var deleteAllowed = true
     var addNewRowCallback: UITableLayoutFormFragmentAddNewRowCallback? = null

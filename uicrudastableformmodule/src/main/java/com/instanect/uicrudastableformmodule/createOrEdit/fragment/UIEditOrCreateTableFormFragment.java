@@ -23,18 +23,15 @@ import static org.junit.Assert.assertNotNull;
 public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
 
 
-    protected UIEditOrCreateFragmentProperties uiEditOrCreateFragmentProperties
-            = new UIEditOrCreateFragmentProperties();
-
-
+    protected UIEditOrCreateFragmentProperties uiEditOrCreateFragmentProperties;
 
     @OnClick(R2.id.imageButtonAdd)
     void onImageButtonAddClicked() {
         assertNotEquals(
-                uiEditOrCreateFragmentProperties.getUiFragmentBaseProperties()
+                uiEditOrCreateFragmentProperties
                         .getIdResRowLayout(), -1);
         View view = getLayoutInflater().inflate(
-                uiEditOrCreateFragmentProperties.getUiFragmentBaseProperties().getIdResRowLayout(), null);
+                uiEditOrCreateFragmentProperties.getIdResRowLayout(), null);
 
         assertNotNull(uiEditOrCreateFragmentProperties.getAddNewRowCallback());
 

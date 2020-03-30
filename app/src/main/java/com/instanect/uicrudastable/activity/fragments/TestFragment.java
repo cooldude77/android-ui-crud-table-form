@@ -15,6 +15,7 @@ import com.instanect.uicrudastableformmodule.base.UIFragmentBaseProperties;
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
+import com.instanect.uicrudastableformmodule.createOrEdit.ui.structure.UIEditOrCreateFragmentProperties;
 import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.ChildIdList;
 
 public class TestFragment extends UIEditOrCreateTableFormFragment implements UITableLayoutFormFragmentAddNewRowCallback, UITableLayoutFormFragmentDeleteRowCallback, UITableLayoutFormFragmentOnViewInsideRowClicked {
@@ -23,9 +24,10 @@ public class TestFragment extends UIEditOrCreateTableFormFragment implements UIT
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        // initializing properties
+        uiEditOrCreateFragmentProperties =  new UIEditOrCreateFragmentProperties();
 
-        UIFragmentBaseProperties baseProperties = uiEditOrCreateFragmentProperties.getUiFragmentBaseProperties();
-        baseProperties.setIdResRowLayout(R.layout.example_row);
+        uiEditOrCreateFragmentProperties.setIdResRowLayout(R.layout.example_row);
 
         uiEditOrCreateFragmentProperties.setAddNewRowCallback(this);
         uiEditOrCreateFragmentProperties.setDeleteRowCallback(this);
@@ -35,7 +37,6 @@ public class TestFragment extends UIEditOrCreateTableFormFragment implements UIT
         ChildIdList mapList = new ChildIdList();
         mapList.add(R.id.editText);
         setChildIdList(mapList);
-
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,18 +17,26 @@ import androidx.fragment.app.Fragment;
 import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.R2;
 import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.ChildIdList;
+import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.IdFieldValueForARowMap;
 import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.RowViewAndItsTagRelationObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 abstract public class UIFormBaseFragment extends Fragment {
     private Context context;
-
     private ArrayList<RowViewAndItsTagRelationObject> rowViewAndItsTagRelationObjects = new ArrayList<>();
     private ChildIdList childIdList = new ChildIdList();
+    private ArrayList<IdFieldValueForARowMap> valueList = new ArrayList<>();
+    private View view;
+
+    // Override this and initialize in derived fragments
+
+    protected UIFragmentBaseProperties uiFragmentProperties;
+
 
     protected void setChildIdList(ChildIdList childIdList) {
         this.childIdList = childIdList;
@@ -36,12 +45,22 @@ abstract public class UIFormBaseFragment extends Fragment {
     protected ArrayList<RowViewAndItsTagRelationObject> getRowViewAndItsTagRelationObjects() {
         return rowViewAndItsTagRelationObjects;
     }
-    public void setRowViewAndItsTagRelationObjects(ArrayList<RowViewAndItsTagRelationObject> rowViewAndItsTagRelationObjects) {
+
+    public void setRowViewAndItsTagRelationObjects(
+            ArrayList<RowViewAndItsTagRelationObject> rowViewAndItsTagRelationObjects) {
         this.rowViewAndItsTagRelationObjects = rowViewAndItsTagRelationObjects;
     }
 
     protected ChildIdList getChildIdList() {
         return childIdList;
+    }
+
+    public ArrayList<IdFieldValueForARowMap> getValueList() {
+        return valueList;
+    }
+
+    public void setValueList(ArrayList<IdFieldValueForARowMap> valueList) {
+        this.valueList = valueList;
     }
 
     @BindView(R2.id.layout_table_entries)
@@ -50,14 +69,14 @@ abstract public class UIFormBaseFragment extends Fragment {
     @BindView(R2.id.textViewFormTitle)
     TextView textViewFormTitle;
 
-
+    @SuppressLint("InflateParams")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.base_layout, null);
+        view = inflater.inflate(R.layout.base_layout, null);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -79,4 +98,21 @@ abstract public class UIFormBaseFragment extends Fragment {
         return linearLayout;
     }
 
+    protected void fillData() {
+        // iterate through value row
+        for (IdFieldValueForARowMap map : valueList) {
+            View row = getLayoutInflater().inflate(uiFragmentProperties.getIdResRowLayout(), null);
+
+            for (Map.Entry<Integer, String> entry : map.entrySet()) {
+                View field = row.findViewById(entry.getKey());
+
+                if (field instanceof CheckBox) {
+                    ((CheckBox) field).setChecked(Boolean.parseBoolean(entry.getValue()));
+                } else if (field instanceof TextView)
+                    ((TextView) field).setText(entry.getValue());
+
+
+            }
+        }
+    }
 }
