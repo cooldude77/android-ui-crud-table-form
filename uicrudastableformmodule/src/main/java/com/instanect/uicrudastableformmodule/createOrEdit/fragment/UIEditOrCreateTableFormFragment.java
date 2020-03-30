@@ -7,10 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.instanect.uicrudastableformmodule.R2;
-import com.instanect.uicrudastableformmodule.base.UIFormBaseFragment;
+import com.instanect.uicrudastableformmodule.common.base.UIFormBaseFragment;
+import com.instanect.uicrudastableformmodule.common.view.IdFieldValueForARowMap;
+import com.instanect.uicrudastableformmodule.common.view.RowViewAndItsTagRelationObject;
 import com.instanect.uicrudastableformmodule.createOrEdit.ui.structure.UIEditOrCreateFragmentProperties;
-import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.IdFieldValueForARowMap;
-import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.RowViewAndItsTagRelationObject;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
 public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment {
 
 
-    protected UIEditOrCreateFragmentProperties uiEditOrCreateFragmentProperties;
+    private UIEditOrCreateFragmentProperties uiEditOrCreateFragmentProperties;
 
     @OnClick(R2.id.imageButtonAdd)
     void onImageButtonAddClicked() {

@@ -1,4 +1,4 @@
-package com.instanect.uicrudastableformmodule.base;
+package com.instanect.uicrudastableformmodule.common.base;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,9 +16,9 @@ import androidx.fragment.app.Fragment;
 
 import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.R2;
-import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.ChildIdList;
-import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.IdFieldValueForARowMap;
-import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.RowViewAndItsTagRelationObject;
+import com.instanect.uicrudastableformmodule.common.view.ChildIdList;
+import com.instanect.uicrudastableformmodule.common.view.IdFieldValueForARowMap;
+import com.instanect.uicrudastableformmodule.common.view.RowViewAndItsTagRelationObject;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -37,6 +37,10 @@ abstract public class UIFormBaseFragment extends Fragment {
 
     protected UIFragmentBaseProperties uiFragmentProperties;
 
+
+    public void setUIFragmentProperties(UIFragmentBaseProperties uiFragmentBaseProperties) {
+        this.uiFragmentProperties = uiFragmentBaseProperties;
+    }
 
     protected void setChildIdList(ChildIdList childIdList) {
         this.childIdList = childIdList;

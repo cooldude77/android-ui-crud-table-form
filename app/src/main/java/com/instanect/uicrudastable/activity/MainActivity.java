@@ -8,8 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.instanect.uicrudastable.R;
-import com.instanect.uicrudastable.activity.fragments.TestFragment;
-import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.IdFieldValueForARowMap;
+import com.instanect.uicrudastable.activity.fragments.TestEditCreateFragment;
+import com.instanect.uicrudastableformmodule.common.view.IdFieldValueForARowMap;
 
 import java.util.ArrayList;
 
@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        TestFragment fragment = new
-                TestFragment();
+        TestEditCreateFragment fragment = new
+                TestEditCreateFragment();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.get) {
             ArrayList<IdFieldValueForARowMap> data
-                    = ((TestFragment) getSupportFragmentManager()
+                    = ((TestEditCreateFragment) getSupportFragmentManager()
                     .findFragmentByTag(FRAG_TAG))
                     .getData();
             int i = 0;

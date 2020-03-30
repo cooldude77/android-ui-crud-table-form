@@ -1,4 +1,4 @@
-package com.instanect.uicrudastableformmodule.createOrEdit.ui.view
+package com.instanect.uicrudastableformmodule.common.view
 
 import android.view.View
 

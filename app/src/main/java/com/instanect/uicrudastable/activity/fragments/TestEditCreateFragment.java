@@ -11,21 +11,21 @@ import androidx.annotation.Nullable;
 
 import com.instanect.uicrudastable.R;
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.UIEditOrCreateTableFormFragment;
-import com.instanect.uicrudastableformmodule.base.UIFragmentBaseProperties;
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked;
-import com.instanect.uicrudastableformmodule.createOrEdit.ui.structure.UIEditOrCreateFragmentProperties;
-import com.instanect.uicrudastableformmodule.createOrEdit.ui.view.ChildIdList;
 
-public class TestFragment extends UIEditOrCreateTableFormFragment implements UITableLayoutFormFragmentAddNewRowCallback, UITableLayoutFormFragmentDeleteRowCallback, UITableLayoutFormFragmentOnViewInsideRowClicked {
+import com.instanect.uicrudastableformmodule.common.view.ChildIdList;
+import com.instanect.uicrudastableformmodule.createOrEdit.ui.structure.UIEditOrCreateFragmentProperties;
+
+public class TestEditCreateFragment extends UIEditOrCreateTableFormFragment implements UITableLayoutFormFragmentAddNewRowCallback, UITableLayoutFormFragmentDeleteRowCallback, UITableLayoutFormFragmentOnViewInsideRowClicked {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // initializing properties
-        uiEditOrCreateFragmentProperties =  new UIEditOrCreateFragmentProperties();
+        UIEditOrCreateFragmentProperties uiEditOrCreateFragmentProperties =  new UIEditOrCreateFragmentProperties();
 
         uiEditOrCreateFragmentProperties.setIdResRowLayout(R.layout.example_row);
 
@@ -34,9 +34,14 @@ public class TestFragment extends UIEditOrCreateTableFormFragment implements UIT
         uiEditOrCreateFragmentProperties.setOnViewInsideRowClickedCallback(this);
         uiEditOrCreateFragmentProperties.setButtonDeleteResId(R.id.buttonDelete);
 
+        setUIFragmentProperties(uiEditOrCreateFragmentProperties);
+
         ChildIdList mapList = new ChildIdList();
+
         mapList.add(R.id.editText);
+
         setChildIdList(mapList);
+
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
