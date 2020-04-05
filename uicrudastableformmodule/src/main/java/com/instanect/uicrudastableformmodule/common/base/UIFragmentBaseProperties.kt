@@ -1,5 +1,6 @@
 package com.instanect.uicrudastableformmodule.common.base
 
+import com.instanect.uicrudastableformmodule.common.base.interfaces.UITableLayoutFormFragmentOnSpinnerInsideRowClicked
 import com.instanect.uicrudastableformmodule.common.base.interfaces.UITableLayoutFormFragmentOnViewInsideRowClicked
 
 public open class UIFragmentBaseProperties {
@@ -7,5 +8,6 @@ public open class UIFragmentBaseProperties {
     var idResRowLayout = -1
     var titleOfForm = "My Form"
     var onViewInsideRowClickedCallback: UITableLayoutFormFragmentOnViewInsideRowClicked? = null
+    var onSpinnerInsideRowClickedCallback: UITableLayoutFormFragmentOnSpinnerInsideRowClicked? = null
 
 }

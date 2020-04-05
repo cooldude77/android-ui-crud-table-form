@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -144,11 +145,21 @@ abstract public class UIFormBaseFragment extends Fragment implements UITableLayo
 
     protected void addOnClickListenerToView(View field) {
 
-        if (uiFragmentProperties.getOnViewInsideRowClickedCallback() != null)
+        if (field instanceof Spinner) {
+            if (uiFragmentProperties.getOnSpinnerInsideRowClickedCallback() != null)
+                ((Spinner) field).setOnItemClickListener(
+                        (parent, view, position, id) -> {
+                            uiFragmentProperties.getOnSpinnerInsideRowClickedCallback()
+                                    .onUITableLayoutFormFragmentViewInsideRowClicked(
+                                            parent, view, position, id);
+                        }
+                );
+        } else if (uiFragmentProperties.getOnViewInsideRowClickedCallback() != null) {
             field.setOnClickListener(v -> {
                 uiFragmentProperties.getOnViewInsideRowClickedCallback()
                         .onUITableLayoutFormFragmentViewInsideRowClicked(v);
             });
+        }
 
     }
 
