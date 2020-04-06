@@ -24,6 +24,7 @@ import com.instanect.uicrudastableformmodule.common.view.RowViewAndItsTagRelatio
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -139,8 +140,21 @@ abstract public class UIFormBaseFragment extends Fragment implements UITableLayo
 
                 addOnClickListenerToView(field);
             }
-            linearLayout.addView(row);
+
+            addTag(row);
+
+            addRow(row);
         }
+    }
+
+
+    protected void addRow(View rowChildView) {
+        // This looks better
+        getLinearLayout().addView(rowChildView,
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+
     }
 
     protected void addOnClickListenerToView(View field) {
@@ -166,5 +180,16 @@ abstract public class UIFormBaseFragment extends Fragment implements UITableLayo
     @Override
     public void onUITableLayoutFormFragmentViewInsideRowClicked(View view) {
         // override this if you need
+    }
+
+    protected void addTag(View rowChildView) {
+
+        String tag = UUID.randomUUID().toString();
+        rowChildView.setTag(tag);
+        RowViewAndItsTagRelationObject rowViewAndItsTagRelationObject = new RowViewAndItsTagRelationObject();
+        rowViewAndItsTagRelationObject.setTag(tag);
+        rowViewAndItsTagRelationObject.setView(rowChildView);
+        getRowViewAndItsTagRelationObjects().add(rowViewAndItsTagRelationObject);
+
     }
 }

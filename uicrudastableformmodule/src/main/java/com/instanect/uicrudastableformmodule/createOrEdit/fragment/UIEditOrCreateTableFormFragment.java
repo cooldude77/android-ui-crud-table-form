@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,13 +14,11 @@ import com.instanect.uicrudastableformmodule.R;
 import com.instanect.uicrudastableformmodule.R2;
 import com.instanect.uicrudastableformmodule.common.base.UIFormBaseFragment;
 import com.instanect.uicrudastableformmodule.common.view.IdFieldValueForARowMap;
-import com.instanect.uicrudastableformmodule.common.view.RowViewAndItsTagRelationObject;
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentAddNewRowCallback;
 import com.instanect.uicrudastableformmodule.createOrEdit.fragment.interfaces.UITableLayoutFormFragmentDeleteRowCallback;
 import com.instanect.uicrudastableformmodule.createOrEdit.ui.structure.UIEditOrCreateFragmentProperties;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import butterknife.OnClick;
 
@@ -69,7 +66,6 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment
         ArrayList<IdFieldValueForARowMap> idFieldValueForARowMaps = new ArrayList<>();
         for (int i = 0; i < getRowViewAndItsTagRelationObjects().size(); i++) {
             View parent = getRowViewAndItsTagRelationObjects().get(i).getView();
-
             idFieldValueForARowMaps.add(getIdValueMap(parent));
 
         }
@@ -107,14 +103,6 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment
 
     }
 
-    private void addRow(View rowChildView) {
-        // This looks better
-        getLinearLayout().addView(rowChildView,
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT));
-
-    }
 
     private void setOnClickViewListener(View rowChildView) {
         if (getUiFragmentProperties().getOnViewInsideRowClickedCallback() != null)
@@ -139,16 +127,6 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment
 
     }
 
-    private void addTag(View rowChildView) {
-
-        String tag = UUID.randomUUID().toString();
-        rowChildView.setTag(tag);
-        RowViewAndItsTagRelationObject rowViewAndItsTagRelationObject = new RowViewAndItsTagRelationObject();
-        rowViewAndItsTagRelationObject.setTag(tag);
-        rowViewAndItsTagRelationObject.setView(rowChildView);
-        getRowViewAndItsTagRelationObjects().add(rowViewAndItsTagRelationObject);
-
-    }
 
     public void deleteRow(View rowOnWhichDeleteWasClicked) {
         getLinearLayout().removeView(rowOnWhichDeleteWasClicked);
