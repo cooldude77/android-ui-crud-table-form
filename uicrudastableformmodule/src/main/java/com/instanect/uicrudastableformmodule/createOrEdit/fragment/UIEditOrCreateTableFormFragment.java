@@ -42,11 +42,11 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment
         getUiFragmentProperties().setDeleteRowCallback(this);
 
 
-        super.onCreateView(inflater, container, savedInstanceState);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
         fillData();
 
-        return getBaseFragmentView();
+        return view;
     }
 
     @OnClick(R2.id.imageButtonAdd)

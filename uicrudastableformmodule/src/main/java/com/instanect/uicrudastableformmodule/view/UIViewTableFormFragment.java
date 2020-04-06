@@ -19,11 +19,11 @@ public class UIViewTableFormFragment extends UIFormBaseFragment {
 
         setContentViewResId(R.layout.base_layout_display);
 
-        super.onCreateView(inflater, container, savedInstanceState);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
         fillData();
 
-        return getBaseFragmentView();
+        return view;
     }
 
 }
