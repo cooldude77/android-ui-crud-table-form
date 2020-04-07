@@ -29,9 +29,11 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-abstract public class UIFormBaseFragment extends Fragment implements UITableLayoutFormFragmentOnViewInsideRowClicked {
+abstract public class UIFormBaseFragment extends Fragment
+        implements UITableLayoutFormFragmentOnViewInsideRowClicked {
     private Context context;
-    private ArrayList<RowViewAndItsTagRelationObject> rowViewAndItsTagRelationObjects = new ArrayList<>();
+    private ArrayList<RowViewAndItsTagRelationObject> rowViewAndItsTagRelationObjects
+            = new ArrayList<>();
     private ChildIdList childIdList = new ChildIdList();
     private ArrayList<IdFieldValueForARowMap> valueList = new ArrayList<>();
     private View view;
@@ -101,7 +103,7 @@ abstract public class UIFormBaseFragment extends Fragment implements UITableLayo
                 null);
         ButterKnife.bind(this, view);
 
-        uiFragmentProperties.setOnViewInsideRowClickedCallback(this);
+        uiFragmentProperties.setOnViewInsideRowClickedListener(this);
 
         textViewFormTitle.setText(uiFragmentProperties.getTitleOfForm());
 
@@ -143,8 +145,15 @@ abstract public class UIFormBaseFragment extends Fragment implements UITableLayo
 
             addTag(row);
 
+            callBeforeRowAddListener(row);
+
             addRow(row);
         }
+    }
+
+    private void callBeforeRowAddListener(View row) {
+        if (uiFragmentProperties.getOnBeforeRowAddListener() != null)
+            uiFragmentProperties.getOnBeforeRowAddListener().onBeforeRowAdd(row);
     }
 
 
@@ -160,17 +169,17 @@ abstract public class UIFormBaseFragment extends Fragment implements UITableLayo
     protected void addOnClickListenerToView(View field) {
 
         if (field instanceof Spinner) {
-            if (uiFragmentProperties.getOnSpinnerInsideRowClickedCallback() != null)
+            if (uiFragmentProperties.getOnSpinnerInsideRowClickedListener() != null)
                 ((Spinner) field).setOnItemClickListener(
                         (parent, view, position, id) -> {
-                            uiFragmentProperties.getOnSpinnerInsideRowClickedCallback()
+                            uiFragmentProperties.getOnSpinnerInsideRowClickedListener()
                                     .onUITableLayoutFormFragmentViewInsideRowClicked(
                                             parent, view, position, id);
                         }
                 );
-        } else if (uiFragmentProperties.getOnViewInsideRowClickedCallback() != null) {
+        } else if (uiFragmentProperties.getOnViewInsideRowClickedListener() != null) {
             field.setOnClickListener(v -> {
-                uiFragmentProperties.getOnViewInsideRowClickedCallback()
+                uiFragmentProperties.getOnViewInsideRowClickedListener()
                         .onUITableLayoutFormFragmentViewInsideRowClicked(v);
             });
         }

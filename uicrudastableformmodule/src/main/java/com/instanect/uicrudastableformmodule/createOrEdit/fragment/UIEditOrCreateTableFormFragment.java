@@ -105,7 +105,7 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment
 
 
     private void setOnClickViewListener(View rowChildView) {
-        if (getUiFragmentProperties().getOnViewInsideRowClickedCallback() != null)
+        if (getUiFragmentProperties().getOnViewInsideRowClickedListener() != null)
             for (int i = 0; i < ((ViewGroup) rowChildView).getChildCount(); i++) {
                 View v = ((ViewGroup) rowChildView).getChildAt(i);
                 if (v.getId() != getUiFragmentProperties().getButtonDeleteResId())
