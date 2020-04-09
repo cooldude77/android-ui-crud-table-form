@@ -141,7 +141,7 @@ abstract public class UIFormBaseFragment extends Fragment
                 } else if (field instanceof TextView)
                     ((TextView) field).setText(entry.getValue());
                 else if (field instanceof Spinner)
-                    ((Spinner) field).setSelection(Integer.parseInt(entry.getValue()));
+                    ((Spinner) field).setSelection(Integer.parseInt(entry.getValue()),true);
 
                 addOnClickListenerToView(field);
             }
