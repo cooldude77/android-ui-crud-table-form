@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -139,6 +140,8 @@ abstract public class UIFormBaseFragment extends Fragment
                     ((CheckBox) field).setChecked(Boolean.parseBoolean(entry.getValue()));
                 } else if (field instanceof TextView)
                     ((TextView) field).setText(entry.getValue());
+                else if (field instanceof Spinner)
+                    ((Spinner) field).setSelection(Integer.parseInt(entry.getValue()));
 
                 addOnClickListenerToView(field);
             }
@@ -170,13 +173,22 @@ abstract public class UIFormBaseFragment extends Fragment
 
         if (field instanceof Spinner) {
             if (uiFragmentProperties.getOnSpinnerInsideRowClickedListener() != null)
-                ((Spinner) field).setOnItemClickListener(
-                        (parent, view, position, id) -> {
-                            uiFragmentProperties.getOnSpinnerInsideRowClickedListener()
-                                    .onUITableLayoutFormFragmentViewInsideRowClicked(
-                                            parent, view, position, id);
-                        }
-                );
+                ((Spinner) field).setOnItemSelectedListener(
+                        new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                uiFragmentProperties.getOnSpinnerInsideRowClickedListener()
+                                        .onUITableLayoutFormFragmentViewInsideRowClicked(
+                                                parent, view, position, id);
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+
+                        });
         } else if (uiFragmentProperties.getOnViewInsideRowClickedListener() != null) {
             field.setOnClickListener(v -> {
                 uiFragmentProperties.getOnViewInsideRowClickedListener()
