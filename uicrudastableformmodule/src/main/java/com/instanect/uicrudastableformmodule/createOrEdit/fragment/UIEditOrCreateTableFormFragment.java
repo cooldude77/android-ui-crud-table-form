@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -83,8 +84,10 @@ public class UIEditOrCreateTableFormFragment extends UIFormBaseFragment
                 String value = null;
                 if (view instanceof TextView) {
                     value = ((TextView) view).getText().toString();
-                    idValueMap.put(integer, value);
-                }
+                } else if (view instanceof Spinner)
+                    value = String.valueOf(((Spinner) view).getSelectedItemPosition());
+
+                idValueMap.put(integer, value);
 
             }
 
