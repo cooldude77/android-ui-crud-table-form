@@ -3,6 +3,7 @@ package com.instanect.uicrudastableformmodule.common.base;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,12 +137,19 @@ abstract public class UIFormBaseFragment extends Fragment
             for (Map.Entry<Integer, String> entry : map.entrySet()) {
                 View field = row.findViewById(entry.getKey());
 
+                if (field == null) {
+                    Log.e("UI TableForm Error", field + " with id " + entry.getKey()
+                            + " missing from layout");
+                    continue;
+                }
+
+
                 if (field instanceof CheckBox) {
                     ((CheckBox) field).setChecked(Boolean.parseBoolean(entry.getValue()));
                 } else if (field instanceof TextView)
                     ((TextView) field).setText(entry.getValue());
                 else if (field instanceof Spinner)
-                    ((Spinner) field).setSelection(Integer.parseInt(entry.getValue()),true);
+                    ((Spinner) field).setSelection(Integer.parseInt(entry.getValue()), true);
 
                 addOnClickListenerToView(field);
             }
